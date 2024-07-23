@@ -1,7 +1,7 @@
 "use client";
 import { LoginSignupProps } from "@/types";
 import { SubmitButton, TextInput, TextLabel } from "../common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Signin: React.FC<LoginSignupProps> = ({ className }) => {
@@ -10,8 +10,13 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
   const [error, setError] = useState<string>("");
   const [msg, setMsg] = useState<string>("");
   const [authType, setAuthType] = useState<"signup" | "login">("signup");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setError("");
+  }, [email, password, authType]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -24,6 +29,7 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         authType === "login" ? "/api/login" : "/api/signup",
         {
@@ -35,14 +41,14 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
         }
       );
 
+      const { message } = await response.json();
+
       if (!response.ok) {
-        const { message } = await response.json();
         setError(message || "Unknown error");
         setMsg("");
         return;
       }
 
-      const { message } = await response.json();
       setMsg(message);
       setError("");
       router.push(`/zoom/${email}`);
@@ -50,12 +56,18 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
       console.error("An error occurred while signing up:", error);
       setError("An unexpected error occurred.");
       setMsg("");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={className}>
-      <TextLabel text={authType === "login" ? "Login to your account" : "Create new account"} />
+      <TextLabel
+        text={
+          authType === "login" ? "Login to your account" : "Create new account"
+        }
+      />
       <button
         onClick={() => setAuthType(authType === "login" ? "signup" : "login")}
         className="underline text-gray-500 text-xs"
@@ -85,6 +97,7 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
       <div className="m-4">
         <SubmitButton text="Submit" onClick={handleSubmit} />
       </div>
+      {loading && <div className="text-blue-500">Loading...</div>}
       {error && <div className="text-red-500">{error}</div>}
       {msg && <div className="text-green-500">{msg}</div>}
     </div>

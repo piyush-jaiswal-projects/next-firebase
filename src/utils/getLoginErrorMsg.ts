@@ -6,6 +6,7 @@ const getLoginErrorMsg = (code: string): string => {
       "auth/user-disabled": "User Disabled",
       "auth/user-not-found": "User Not Found",
       "auth/wrong-password": "Wrong Password",
+      "auth/invalid-credential": "Invalid Credential!",
     };
     return errorMessages[code] || "Internal Server Error";
   };

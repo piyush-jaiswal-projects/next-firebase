@@ -8,6 +8,7 @@ export default function ZoomPage() {
   const [email, setEmail] = useState<string | null>(null);
   const [meetingUrl, setMeetingUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,18 +17,19 @@ export default function ZoomPage() {
   }, []);
 
   const generateZoomMeetLink = async () => {
+    setLoading(true);
     const accessToken = await getAccessToken();
     if (accessToken === "") {
       setError("Error generating access token!");
       return;
     }
     const user = await getUser(accessToken, email ?? "", setError);
-    if (error?.split(" ")[1] === "1001") {
-      // requires pro subscription
-      router.push("/user")
-    } else {
-      setMeetingUrl(user.personal_meeting_url);
+    console.log(user);
+    if (user?.code === 1001) {
+      window.location.href = "/user";
     }
+    setMeetingUrl(user.personal_meeting_url);
+    setLoading(false);
   };
 
   return (
@@ -53,6 +55,7 @@ export default function ZoomPage() {
           {meetingUrl}
         </a>
         <label className="text-red-500">{error}</label>
+        {loading && <div className="text-blue-500">Loading...</div>}
       </div>
     </main>
   );

@@ -48,7 +48,7 @@ const UserForm: React.FC = () => {
 
   return (
     <div className="bg-slate-100 shadow rounded-lg p-4 w-1/3 min-h-[300px]">
-      <h1 className="text-md ">User Form</h1>
+      <h1 className="text-lg font-semibold ">CREATE USER ZOOM ACCOUNT</h1>
       <div className="m-2">
         <TextLabel text="Email" />
         <TextInput

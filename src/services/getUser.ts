@@ -18,7 +18,10 @@ export default async function getUser(
     }
 
     const res = await response.json();
-    if (res.code === 1001) setError(`Code ${res.code} : Zoom ${res.messgae}`);
+    if (res.code === 1001){
+        setError(`Code ${res.code} : Zoom ${res.messgae}`);
+        return {code: res.code, msg: res.message};
+    }
     return res.data ?? "";
   } catch (error) {
     console.log(error);
