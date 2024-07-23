@@ -16,10 +16,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 RUN npm ci
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
-
+RUN addgroup -g 1001 -S next-group
+RUN adduser -S next-user -u 1001
+USER next-user
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
