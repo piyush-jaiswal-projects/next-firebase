@@ -2,25 +2,19 @@
 
 Welcome to the Next Project! This repository contains the code for our exciting new project built with Next.js.
 
-## Getting Started
+## ADD FOLLOWING TO .env FILE
+NEXT_PUBLIC_FIREBASE_APP_ID=""  
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=""  
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=""  
+NEXT_PUBLIC_FIREBASE_API_KEY=""  
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=""  
 
-To get started with the project, follow these steps:
 
-1. Clone the repository to your local machine.
-2. Install the necessary dependencies by running `npm install`.
-3. Start the development server by running `npm run dev`.
-4. Open your browser and navigate to `http://localhost:3000` to see the project in action.
+NEXT_PUBLIC_ZOOM_ACCOUNT_ID=""  
+NEXT_PUBLIC_ZOOM_CLIENT_ID=""  
+NEXT_PUBLIC_ZOOM_CLIENT_SECRET=""  
+NEXT_PUBLIC_ZOOM_ACCESS_TOKEN=""  
 
-## Features
 
-- Feature 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-- Feature 2: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-- Feature 3: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+NEXT_PUBLIC_ZOOM_API_BASE_URL="https://api.zoom.us/v2"  
 
-## Contributing
-
-We welcome contributions from the community! If you'd like to contribute to the project, please follow our [contribution guidelines](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
