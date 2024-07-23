@@ -1,8 +1,8 @@
 "use client";
-
 import { LoginSignupProps } from "@/types";
 import { SubmitButton, TextInput, TextLabel } from "../common";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Signin: React.FC<LoginSignupProps> = ({ className }) => {
   const [email, setEmail] = useState<string>("");
@@ -10,6 +10,8 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
   const [error, setError] = useState<string>("");
   const [msg, setMsg] = useState<string>("");
   const [authType, setAuthType] = useState<"signup" | "login">("signup");
+
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -43,6 +45,7 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
       const { message } = await response.json();
       setMsg(message);
       setError("");
+      router.push(`/zoom/${email}`);
     } catch (error) {
       console.error("An error occurred while signing up:", error);
       setError("An unexpected error occurred.");
@@ -55,9 +58,9 @@ const Signin: React.FC<LoginSignupProps> = ({ className }) => {
       <TextLabel text={authType === "login" ? "Login to your account" : "Create new account"} />
       <button
         onClick={() => setAuthType(authType === "login" ? "signup" : "login")}
-        className="underline text-gray-500"
+        className="underline text-gray-500 text-xs"
       >
-        {authType === "login" ? "Create new account?" : "Log in to account"}
+        {authType === "login" ? "Create new account?" : "Login to account"}
       </button>
       <div className="m-2">
         <TextLabel text="Email" />

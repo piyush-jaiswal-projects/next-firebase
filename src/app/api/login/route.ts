@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import firebaseApp from "@/config/firebase";
+import { getLoginErrorMsg } from "@/utils";
 
 const auth = getAuth(firebaseApp);
 
@@ -25,24 +26,8 @@ export async function POST(request: NextRequest) {
       message: "User Logged in!",
       user: userCredential.user,
     });
-  } catch (e: any) {
-    let errorMessage;
-
-    switch (e.code) {
-      case "auth/email-already-in-use":
-        errorMessage = "Email Already in Use";
-        break;
-      case "auth/weak-password":
-        errorMessage = "Weak Password";
-        break;
-      case "auth/invalid-email":
-        errorMessage = "Invalid Email";
-        break;
-      default:
-        errorMessage = "Internal Server Error";
-        break;
-    }
-
+  } catch (error: any) {
+    const errorMessage = getLoginErrorMsg(error.code);
     return NextResponse.json({ message: errorMessage }, { status: 400 });
   }
 }
