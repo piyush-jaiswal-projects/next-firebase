@@ -1,6 +1,8 @@
-# Next Project README
+# Generate Meeting Link Using Zoom APIs
 
-Welcome to the Next Project! This repository contains the code for our exciting new project built with Next.js.
+## Features
+1. Authentication using Firebase.  
+2. Get personal meeting link using ZOOM APIs.  
 
 ## ADD FOLLOWING TO .env FILE
 NEXT_PUBLIC_FIREBASE_APP_ID=""  
